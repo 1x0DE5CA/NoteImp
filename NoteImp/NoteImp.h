@@ -22,7 +22,7 @@ public:
 private:
     Ui::NoteImpClass *ui;
 
-    void addNewTab();
+    void addNewTab(const QString &, const QString &);
     const QString getFileBasename(const QString &);
 
 private slots:
