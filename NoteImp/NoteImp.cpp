@@ -58,3 +58,8 @@ void NoteImp::on_actionOpen_triggered()
 
 void NoteImp::on_actionSave_triggered() {}
 void NoteImp::on_actionSave_as_triggered() {}
+
+void NoteImp::on_tabWidget_tabCloseRequested(int tabIndex)
+{
+    ui->tabWidget->removeTab(tabIndex);
+}
