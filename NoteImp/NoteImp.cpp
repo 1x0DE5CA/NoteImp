@@ -29,8 +29,7 @@ void NoteImp::addNewTab(const QString &title = "New File", const QString &text =
 
 const QString NoteImp::getFileBasename(const QString &fileName)
 {
-    int fileBasenameIndex = fileName.lastIndexOf("/");
-    return fileName.last(fileBasenameIndex + 1);
+    return fileName.sliced(fileName.lastIndexOf("/") + 1);
 }
 
 // Action slots
