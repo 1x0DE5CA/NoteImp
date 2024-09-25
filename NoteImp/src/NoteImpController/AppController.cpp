@@ -1,33 +1,23 @@
 #include "NoteImpController/AppController.h"
 
-NoteImp::Controller::AppController::AppController(NoteImp::View::MainWindow* mainWindow, QObject* parent)
+using namespace NoteImp::Controller;
+
+AppController::AppController(NoteImp::View::MainWindow* mainWindow, QObject* parent)
     : QObject(parent), mainWindow(mainWindow)
 {
     connect(mainWindow, &NoteImp::View::MainWindow::fileOpen, this, &NoteImp::Controller::AppController::on_fileOpen);
 }
 
-NoteImp::Controller::AppController::~AppController()
-{
-    delete mainWindow;
-}
-
-
-const QString NoteImp::Controller::AppController::getFileBasename(const QString &fileName)
-{
-    return fileName.sliced(fileName.lastIndexOf("/") + 1);
-}
-
 // Slots
-void NoteImp::Controller::AppController::on_fileOpen(const QString fileName)
+void AppController::on_fileOpen(const QString fileName)
 {
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(mainWindow, "Warning", "Cannot open file: " + file.errorString());
-        return;
+    try {
+        NoteImp::Model::File file(fileName);
+        QString text = file.getContent();
+        const QString fileName = file.getFileName();
+        files.push_back(std::move(file));
+        mainWindow->addNewTab(fileName, text);
+    } catch (const std::runtime_error& e) {
+        QMessageBox::warning(mainWindow, "Warning", "Cannot open file: " + QString::fromStdString(e.what()));
     }
-    QTextStream in(&file);
-    QString text = in.readAll();
-    file.close();
-    const QString fileBasename = getFileBasename(fileName);
-    mainWindow->addNewTab(fileBasename, text);
 }
