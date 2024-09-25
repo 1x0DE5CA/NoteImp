@@ -1,10 +1,14 @@
 #ifndef APP_CONTROLLER_H
 #define APP_CONTROLLER_H
 
+#include <vector>
+#include <memory>
+
 #include <QObject>
 #include <QMessageBox>
 
 #include "NoteImpView/MainWindow.h"
+#include "NoteImpModel/File.h"
 
 namespace NoteImp
 {
@@ -16,12 +20,10 @@ namespace NoteImp
 
         public:
             AppController(NoteImp::View::MainWindow* mainWindow, QObject* parent = nullptr);
-            ~AppController();
 
         private:
             NoteImp::View::MainWindow* mainWindow;
-
-            const QString getFileBasename(const QString &);
+            std::vector<NoteImp::Model::File> files;
 
         private slots:
             void on_fileOpen(const QString);
