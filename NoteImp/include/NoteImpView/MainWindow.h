@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <vector>
-
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
