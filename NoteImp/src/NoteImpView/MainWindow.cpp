@@ -1,0 +1,53 @@
+#include "NoteImpView/MainWindow.h"
+
+NoteImp::View::MainWindow::MainWindow(QWidget* parent)
+    : QMainWindow(parent)
+    , ui(new Ui::NoteImpClass())
+{
+    ui->setupUi(this);
+}
+
+NoteImp::View::MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void NoteImp::View::MainWindow::addNewTab(const QString &title = "New File", const QString &text = "")
+{
+    QWidget* newTab = new QWidget();
+    int newTabIndex = ui->tabWidget->currentIndex() + 1;
+    newTab->setObjectName(QString("tab_%1").arg(newTabIndex));
+    QHBoxLayout* horizontalLayout = new QHBoxLayout(newTab);
+    horizontalLayout->setSpacing(6);
+    horizontalLayout->setContentsMargins(11, 11, 11, 11);
+    horizontalLayout->setObjectName(QString("horizontalLayout_%1").arg(newTabIndex));
+    horizontalLayout->setContentsMargins(2, 2, 2, 2);
+    QTextEdit* textEdit = new QTextEdit(text, newTab);
+    textEdit->setObjectName("textEdit");
+    horizontalLayout->addWidget(textEdit);
+    ui->tabWidget->addTab(newTab, title);
+    ui->tabWidget->setCurrentIndex(newTabIndex);
+}
+
+// Action slots
+void NoteImp::View::MainWindow::on_actionNew_triggered()
+{
+    addNewTab();
+}
+
+void NoteImp::View::MainWindow::on_actionOpen_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+    if (fileName.isEmpty())
+        return;
+
+    emit fileOpen(fileName);
+}
+
+void NoteImp::View::MainWindow::on_actionSave_triggered() {}
+void NoteImp::View::MainWindow::on_actionSave_as_triggered() {}
+
+void NoteImp::View::MainWindow::on_tabWidget_tabCloseRequested(int tabIndex)
+{
+    ui->tabWidget->removeTab(tabIndex);
+}

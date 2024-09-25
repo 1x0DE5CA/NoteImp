@@ -15,11 +15,17 @@ find_package(Qt${QT_VERSION_MAJOR}
 )
 qt_standard_project_setup()
 
+include_directories(include)
+
 set(PROJECT_SOURCES
     main.cpp
     NoteImp.ui
-    NoteImp.h
-    NoteImp.cpp
+    src/NoteImpView/MainWindow.cpp
+    include/NoteImpView/MainWindow.h
+    src/NoteImpModel/File.cpp
+    include/NoteImpModel/File.h
+    src/NoteImpController/AppController.cpp
+    include/NoteImpController/AppController.h
 )
 
 qt_add_executable(NoteImp ${PROJECT_SOURCES})
