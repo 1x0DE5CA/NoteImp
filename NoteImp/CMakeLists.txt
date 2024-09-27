@@ -6,6 +6,8 @@ include(qt.cmake)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_AUTORCC ON)
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR}
     COMPONENTS
@@ -19,7 +21,7 @@ include_directories(include)
 
 set(PROJECT_SOURCES
     main.cpp
-    NoteImp.ui
+    include/UI/NoteImp.ui
     src/NoteImpView/MainWindow.cpp
     include/NoteImpView/MainWindow.h
     src/NoteImpModel/File.cpp
@@ -28,7 +30,12 @@ set(PROJECT_SOURCES
     include/NoteImpController/AppController.h
 )
 
-qt_add_executable(NoteImp ${PROJECT_SOURCES})
+set(PROJECT_RESOURCES include/UI/styles/MainWindow.qrc)
+
+qt_add_executable(NoteImp
+    ${PROJECT_RESOURCES}
+    ${PROJECT_SOURCES}
+)
 
 set_target_properties(NoteImp
     PROPERTIES
