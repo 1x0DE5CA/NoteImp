@@ -33,7 +33,6 @@ public:
     QWidget* centralWidget;
     QHBoxLayout* horizontalLayout_1;
     QTabWidget* tabWidget;
-    QWidget* tab_1;
     QHBoxLayout* horizontalLayout_2;
     QTextEdit* textEdit;
     QMenuBar* menuBar;
@@ -67,19 +66,6 @@ public:
         tabWidget->setStyleSheet(QString::fromUtf8(""));
         tabWidget->setTabsClosable(true);
         tabWidget->setMovable(true);
-        tab_1 = new QWidget();
-        tab_1->setObjectName("tab_1");
-        horizontalLayout_2 = new QHBoxLayout(tab_1);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName("horizontalLayout_2");
-        horizontalLayout_2->setContentsMargins(2, 2, 2, 2);
-        textEdit = new QTextEdit(tab_1);
-        textEdit->setObjectName("textEdit");
-
-        horizontalLayout_2->addWidget(textEdit);
-
-        tabWidget->addTab(tab_1, QString());
 
         horizontalLayout_1->addWidget(tabWidget);
 
@@ -125,7 +111,6 @@ public:
         actionOpen->setText(QCoreApplication::translate("NoteImpClass", "Open", nullptr));
         actionSave->setText(QCoreApplication::translate("NoteImpClass", "Save", nullptr));
         actionSave_as->setText(QCoreApplication::translate("NoteImpClass", "Save as...", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_1), QCoreApplication::translate("NoteImpClass", "New File", nullptr));
         menuFile->setTitle(QCoreApplication::translate("NoteImpClass", "File", nullptr));
         menuEdit->setTitle(QCoreApplication::translate("NoteImpClass", "Edit", nullptr));
     } // retranslateUi
