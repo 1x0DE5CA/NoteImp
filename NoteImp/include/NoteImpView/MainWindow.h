@@ -27,6 +27,7 @@ namespace NoteImp
         signals:
             void newFile();
             void openFile(QString &);
+            void saveFile(QString &);
             void closeFile(int);
 
         private:

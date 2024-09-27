@@ -18,6 +18,7 @@ namespace NoteImp {
             const QString getContent();
             const QString getFileName();
             void openOrCreate();
+            void saveFile();
 
         private:
             QString fileName;

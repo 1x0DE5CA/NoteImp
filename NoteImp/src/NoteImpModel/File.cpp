@@ -34,6 +34,16 @@ void File::openOrCreate()
     }
 }
 
+void File::saveFile()
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
+        throw std::runtime_error(file.errorString().toStdString());
+    }
+    QTextStream out(&file);
+    out << content;
+}
+
 const QString File::getFileName()
 {
     // Why is it so fucking hard to have a distinctive name for something?

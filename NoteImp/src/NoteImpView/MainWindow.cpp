@@ -7,6 +7,14 @@ MainWindow::MainWindow(QWidget* parent)
     , ui(new Ui::NoteImpClass())
 {
     ui->setupUi(this);
+
+    //setWindowFlag(Qt::FramelessWindowHint);
+
+    QFile qssFile(":/styles/MainWindow.qss");
+    if (qssFile.open(QFile::ReadOnly)) {
+        QString styleSheet = QString::fromUtf8(qssFile.readAll());
+        this->setStyleSheet(styleSheet);
+    }
 }
 
 MainWindow::~MainWindow()
@@ -46,7 +54,14 @@ void MainWindow::on_actionOpen_triggered()
     emit openFile(fileName);
 }
 
-void MainWindow::on_actionSave_triggered() {}
+void MainWindow::on_actionSave_triggered()
+{
+    QString fileSaveFullPath = QFileDialog::getSaveFileName(this, "Save");
+    if (fileSaveFullPath.isEmpty())
+        return;
+    emit saveFile(fileSaveFullPath);
+}
+
 void MainWindow::on_actionSave_as_triggered() {}
 
 void MainWindow::on_tabWidget_tabCloseRequested(int tabIndex)
