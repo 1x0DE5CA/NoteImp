@@ -24,9 +24,13 @@ namespace NoteImp
         private:
             NoteImp::View::MainWindow* mainWindow;
             std::vector<NoteImp::Model::File> files;
+            void addNewFile(const QString &);
 
         private slots:
-            void on_fileOpen(const QString);
+            void on_newFile();
+            void on_openFile(const QString &);
+            void on_closeFile(int);
+            void on_saveFile(const QString &);
         };
     }
 }

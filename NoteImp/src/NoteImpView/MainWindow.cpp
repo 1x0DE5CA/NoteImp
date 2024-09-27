@@ -24,8 +24,9 @@ void MainWindow::addNewTab(const QString &title = "New File", const QString &tex
     horizontalLayout->setContentsMargins(11, 11, 11, 11);
     horizontalLayout->setObjectName(QString("horizontalLayout_%1").arg(newTabIndex));
     horizontalLayout->setContentsMargins(2, 2, 2, 2);
-    QTextEdit* textEdit = new QTextEdit(text, newTab);
+    QTextEdit* textEdit = new QTextEdit(newTab);
     textEdit->setObjectName("textEdit");
+    textEdit->setPlainText(text);
     horizontalLayout->addWidget(textEdit);
     ui->tabWidget->addTab(newTab, title);
     ui->tabWidget->setCurrentIndex(newTabIndex);
@@ -34,7 +35,7 @@ void MainWindow::addNewTab(const QString &title = "New File", const QString &tex
 // Action slots
 void MainWindow::on_actionNew_triggered()
 {
-    addNewTab();
+    emit newFile();
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -42,8 +43,7 @@ void MainWindow::on_actionOpen_triggered()
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
     if (fileName.isEmpty())
         return;
-
-    emit fileOpen(fileName);
+    emit openFile(fileName);
 }
 
 void MainWindow::on_actionSave_triggered() {}
@@ -52,4 +52,5 @@ void MainWindow::on_actionSave_as_triggered() {}
 void MainWindow::on_tabWidget_tabCloseRequested(int tabIndex)
 {
     ui->tabWidget->removeTab(tabIndex);
+    emit closeFile(tabIndex);
 }

@@ -25,8 +25,9 @@ namespace NoteImp
             void addNewTab(const QString &, const QString &);
 
         signals:
-            void fileOpen(const QString);
-            void fileSave();
+            void newFile();
+            void openFile(QString &);
+            void closeFile(int);
 
         private:
             Ui::NoteImpClass* ui;

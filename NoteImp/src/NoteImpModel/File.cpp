@@ -4,8 +4,15 @@ using namespace NoteImp::Model;
 
 File::File(const QString &fileName)
     : fileName(fileName), fileInfo(fileName), isModified(false)
+{}
+
+void File::getNewTempFile()
 {
-    readFromFile();
+    QTemporaryFile newFile("noteimp_tmp");
+    if (newFile.open()) {
+        fileName = newFile.fileName();
+        fileInfo = QFileInfo(newFile);
+    }
 }
 
 void File::readFromFile()
@@ -16,11 +23,20 @@ void File::readFromFile()
     }
     QTextStream in(&file);
     content = in.readAll();
-    file.close();
+}
+
+void File::openOrCreate()
+{
+    if (fileName.isEmpty()) {
+        getNewTempFile();
+    } else {
+        readFromFile();
+    }
 }
 
 const QString File::getFileName()
 {
+    // Why is it so fucking hard to have a distinctive name for something?
     return fileInfo.fileName();
 }
 

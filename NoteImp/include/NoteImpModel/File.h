@@ -7,23 +7,25 @@
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
+#include <QTemporaryFile>
 
 namespace NoteImp {
     namespace Model {
         class File
         {
         public:
-            File(const QString &fileName);
-            const QString getFileName();
+            File(const QString &);
             const QString getContent();
+            const QString getFileName();
+            void openOrCreate();
 
         private:
-            const QString fileName;
+            QString fileName;
             QString content;
             QFileInfo fileInfo;
             bool isModified;
-
             void readFromFile();
+            void getNewTempFile();
         };
     }
 }
